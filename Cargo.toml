@@ -1,0 +1,38 @@
+[package]
+name = "whimsy"
+description = """\
+A ~~whim~~ task management GTK application that inserts a new item at the\
+bottom and supports randomly picking up the next to-do for you.\
+"""
+version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+homepage = "https://gitlab.com/grauwoelfchen/whimsy"
+documentation = "https://gitlab.com/grauwoelfchen/whimsy"
+repository = "https://gitlab.com/grauwoelfchen/whimsy"
+license = "GPL-3.0-or-later"
+keywords = ["gtk"]
+categories = ["gui"]
+
+autobins = false
+
+exclude = [
+  "Makefile",
+  "rust-toolchain",
+  ".gitignore",
+  ".clippy.toml",
+  ".rustfmt.toml",
+]
+
+[[bin]]
+name = "whimsy"
+path = "src/app.rs"
+
+[dependencies]
+rand = "0.8.5"
+gio = "0.18.3"
+glib = "0.18.3"
+gtk = { version = "0.7.3", package = "gtk4", features = ["v4_12"] }
+
+[build-dependencies]
+glib-build-tools = "0.18.0"
