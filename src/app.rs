@@ -13,7 +13,7 @@ fn main() -> ExitCode {
     gtk::init().expect("failed to initialize GTK.");
 
     gio::resources_register_include!("whimsy.gresource")
-        .expect("Failed to register resource file.");
+        .expect("failed to register resource file.");
 
     let app = Application::builder().application_id(APP_ID).build();
 

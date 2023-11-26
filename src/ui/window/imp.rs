@@ -1,6 +1,11 @@
+use std::cell::RefCell;
+
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{glib, ApplicationWindow, CompositeTemplate, Label, TemplateChild};
+use gtk::{
+    glib, ApplicationWindow, CompositeTemplate, Entry, Label, ListView,
+    TemplateChild,
+};
 use rand::Rng;
 
 use crate::ui::flip_button::FlipButton;
@@ -8,6 +13,14 @@ use crate::ui::flip_button::FlipButton;
 #[derive(CompositeTemplate, Default)]
 #[template(file = "../window.ui")]
 pub struct Window {
+    #[template_child]
+    pub entry: TemplateChild<Entry>,
+
+    #[template_child]
+    pub tasks_list: TemplateChild<ListView>,
+
+    pub tasks: RefCell<Option<gio::ListStore>>,
+
     #[template_child(id = "label")]
     pub label: TemplateChild<Label>,
 
@@ -59,6 +72,9 @@ impl ObjectSubclass for Window {
 impl ObjectImpl for Window {
     fn constructed(&self) {
         self.parent_constructed();
+
+        let obj = self.obj();
+        obj.setup_tasks();
     }
 }
 
